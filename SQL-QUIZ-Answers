@@ -1,0 +1,75 @@
+select  r.name as region, s.name as sales_reps_name , a.name as account_name
+from region r 
+join sales_reps s
+ON s.region_id = r.id
+join accounts a
+ON a.sales_rep_id = s.id
+where r.name = 'Midwest'
+order by a.name;
+
+select  r.name as region, s.name as sales_reps_name , a.name as account_name
+from region r 
+join sales_reps s
+ON s.region_id = r.id
+join accounts a
+ON a.sales_rep_id = s.id
+where s.name like 'S%' and r.name = 'Midwest'
+order by a.name;
+
+select  r.name as region, s.name as sales_reps_name , a.name as account_name
+from region r 
+join sales_reps s
+ON s.region_id = r.id
+join accounts a
+ON a.sales_rep_id = s.id
+where s.name like '% K%' and r.name = 'Midwest'
+order by a.name;
+
+
+select  r.name as region , a.name as account_name, o.total_amt_usd /(o.total+0.001) as unit_price
+from orders o
+join accounts a
+ON a.id = o.account_id
+join sales_reps s
+ON a.sales_rep_id = s.id
+join region r
+ON s.region_id = r.id
+where o.standard_qty> 100;
+
+select  r.name as region , a.name as account_name, o.total_amt_usd /(o.total+0.001) as unit_price
+from orders o
+join accounts a
+ON a.id = o.account_id
+join sales_reps s
+ON a.sales_rep_id = s.id
+join region r
+ON s.region_id = r.id
+where o.standard_qty> 100  and o.poster_qty > 50
+order by unit_price;
+
+select  r.name as region , a.name as account_name, o.total_amt_usd /(o.total+0.001) as unit_price
+from orders o
+join accounts a
+ON a.id = o.account_id
+join sales_reps s
+ON a.sales_rep_id = s.id
+join region r
+ON s.region_id = r.id
+where o.standard_qty> 100  and o.poster_qty > 50
+order by unit_price DESC;
+
+select distinct a.name as account_name,  w.channel as channel
+from accounts a
+join web_events w
+ON a.id = w.account_id
+where a.id =1001;
+
+
+select o. occurred_at, a.name as account, o.total, o.total_amt_usd 
+from orders o
+join accounts a
+ON a.id = o.account_id
+where occurred_at between '2015-01-01' and '2016-01-01'
+ORDER BY o.occurred_at DESC;
+
+
